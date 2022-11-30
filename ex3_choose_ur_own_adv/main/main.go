@@ -10,15 +10,13 @@ import (
 
 func main() {
 	filename := flag.String("filename", "gopher.json", "a json file for your cyoa")
+	port := flag.Int("port", 3000, "specify the port the app should be served on")
 	flag.Parse()
-
-	fmt.Println("new story")
 	story, err := cyoa.ParseStory(*filename)
 	if err != nil {
 		fmt.Println(err)
 	}
 	handle := cyoa.NewHandler(story)
-
-	fmt.Println("Starting new server")
-	log.Fatal(http.ListenAndServe(":3000", handle))
+	fmt.Printf("Starting new server on http://localhost:%d \n", *port)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", *port), handle))
 }
