@@ -1,10 +1,12 @@
-//go:generate stringer -type=Suit, Color, Rank
+//go:generate go run golang.org/x/tools/cmd/stringer -type=Suit,Color,Rank
 package deck
+
+import "fmt"
 
 type Suit uint8
 
 const (
-	Spades Suit = iota
+	Spade Suit = iota
 	Diamond
 	Club
 	Heart
@@ -38,11 +40,14 @@ const (
 )
 
 type Card struct {
+	Rank
 	Suit
 	Color
-	Rank
 }
 
 func (c Card) String() string {
-	return ""
+	if c.Suit == Joker {
+		return c.Suit.String()
+	}
+	return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
 }
