@@ -69,3 +69,10 @@ func TestFilter(t *testing.T) {
 		}
 	}
 }
+
+func TestDeck(t *testing.T) {
+	deck := New(Deck(4))
+	if len(deck) != 13*4*4 {
+		t.Errorf("Deck should be %d long, but got: %d", 13*4*4, len(deck))
+	}
+}
