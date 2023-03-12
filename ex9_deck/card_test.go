@@ -57,3 +57,15 @@ func TestJokers(t *testing.T) {
 		t.Errorf("Got %d Jokers, wanted 5", count)
 	}
 }
+
+func TestFilter(t *testing.T) {
+	filter := func(card Card) bool {
+		return card.Rank == King || card.Rank == Queen
+	}
+	deck := New(Filter(filter))
+	for _, card := range deck {
+		if card.Rank == King || card.Rank == Queen {
+			t.Errorf("Got a %s, but the filter should have removed it", card.String())
+		}
+	}
+}
