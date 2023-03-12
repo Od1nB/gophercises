@@ -44,3 +44,16 @@ func TestGenericSort(t *testing.T) {
 		t.Error("First card is supposed to be Ace of Spades")
 	}
 }
+
+func TestJokers(t *testing.T) {
+	deck := New(Jokers(5))
+	count := 0
+	for _, card := range deck {
+		if card.Suit == Joker {
+			count++
+		}
+	}
+	if count != 5 {
+		t.Errorf("Got %d Jokers, wanted 5", count)
+	}
+}
